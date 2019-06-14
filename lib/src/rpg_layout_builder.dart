@@ -2,7 +2,11 @@ import 'package:dev_rpg/src/style.dart';
 import 'package:flutter/material.dart';
 
 /// Layout for the dev_rpg game.
-enum RpgLayout { slim, wide, ultrawide }
+enum RpgLayout {
+  slim,
+  wide,
+  ultrawide,
+}
 
 /// Signature for a function that builds a widget given an [RpgLayout].
 ///

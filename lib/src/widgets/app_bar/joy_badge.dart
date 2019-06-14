@@ -5,8 +5,11 @@ import 'package:dev_rpg/src/widgets/app_bar/stat_badge.dart';
 /// sad, happy, neutral states and a call to attention animation whenever
 /// the numeric value changes.
 class JoyBadge extends StatBadge<double> {
-  JoyBadge(StatValue<double> statValue, {double scale = 1, bool isWide = false})
-      : super('Joy', statValue,
+  const JoyBadge(
+    StatValue<double> statValue, {
+    double scale = 1,
+    bool isWide = false,
+  }) : super('Joy', statValue,
             flare: 'assets/flare/Joy.flr', scale: scale, isWide: isWide);
 
   /// Play the celebration animation whenever there's a change
@@ -25,6 +28,7 @@ class JoyBadgeState extends StatBadgeState<double> {
   _Emotion _emotion;
 
   _Emotion get emotion => _emotion;
+
   set emotion(_Emotion value) {
     if (value == _emotion) {
       return;

@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 class CharacterModal extends StatelessWidget {
   final FlareControls _controls = FlareControls();
   final FocusNode _focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     FocusScope.of(context).requestFocus(_focusNode);
@@ -116,46 +117,48 @@ class CharacterStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var character = Provider.of<Character>(context);
-    var characterStyle = CharacterStyle.from(character);
-    return Material(
-      type: MaterialType.transparency,
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10),
+    //var character = Provider.of<Character>(context);
+    //var characterStyle = CharacterStyle.from(character);
+    return Consumer<Character>(
+      builder: (context, character, _) => Material(
+        type: MaterialType.transparency,
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Level ${character.level}',
-                style: contentStyle.apply(color: secondaryContentColor),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 7, bottom: 6),
-                child: Text(
-                  characterStyle.name,
-                  style: contentLargeStyle,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Level ${character.level}',
+                  style: contentStyle.apply(color: secondaryContentColor),
                 ),
-              ),
-              Text(
-                characterStyle.description,
-                style: contentSmallStyle,
-              ),
-              Column(
-                children: character.prowess.keys
-                    .map((Skill skill) => SkillDisplay(skill))
-                    .toList(),
-              ),
-              const SizedBox(height: 40),
-              UpgradeHireButton(_controls),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 7, bottom: 6),
+                  child: Text(
+                    CharacterStyle.from(character).name,
+                    style: contentLargeStyle,
+                  ),
+                ),
+                Text(
+                  CharacterStyle.from(character).description,
+                  style: contentSmallStyle,
+                ),
+                Column(
+                  children: character.prowess.keys
+                      .map((Skill skill) => SkillDisplay(skill))
+                      .toList(),
+                ),
+                const SizedBox(height: 40),
+                UpgradeHireButton(_controls),
+              ],
+            ),
           ),
         ),
       ),
